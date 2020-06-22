@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../static/common.css"/>
+    <script type="text/javascript" src="../../static/jquery.min.js"></script>
+    <title>input 组件 </title>
+</head>
+<body>
+    <!--   props :   disabled 验证(先不做) tips errorMsg placeholder label width value type
+           event :   change enter blur click
+           methods : clear focus setValue getValue 
+           命名空间 :.模块_位置_内容_修饰符
+    -->
+
+    <div class="le_react_input_fields ">
+        <div class="le_react_input_slot">
+            <label class="le_react_input_label small_label">姓名:</label>
+            <input class="le_react_input_input" type="text" value=""/>
+            <div class="bottomLine"></div>
+        </div>
+        <div class="le_react_input_errorMsg">
+            <p class="tip">这个是提示信息!</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .le_react_input_fields{
+        width: 100%;
+        min-height: 100px;
+        position: relative;
+        padding: 0 10px;
+    }
+    .le_react_input_fields.isError{
+        color: #ff5252;
+    }
+
+    .le_react_input_fields .le_react_input_slot{
+        width: 100%;
+        height: 48px;
+        color: inherit;
+        line-height: 32px;
+        position: relative;
+        padding-top: 16px;
+        border-bottom: 1px solid ;
+        background-color: inherit;
+    }
+    .le_react_input_fields .le_react_input_slot:hover{
+        border-bottom-color: #333;
+        color: inherit;
+    }
+
+    .le_react_input_fields .bottomLine{
+        width: 0;
+        transition: width 1s;
+        left: 50%;
+        color: inherit;
+        position: absolute;
+        transform: translateX(-50%);
+        border-bottom: 2px solid red;
+        border-color: inherit;
+    }
+
+    .le_react_input_fields .inputOnfocus .bottomLine{
+        left: 50%;
+        position: absolute;
+        color: inherit;
+        transform: translateX(-50%);
+        border-bottom: 2px solid #1867c0;
+        width: 100%;
+        transition: width 1s;
+    }
+    .le_react_input_fields.isError .inputOnfocus .bottomLine{
+        border-color: #ff5252;
+    }
+
+    .le_react_input_fields .le_react_input_input{
+        display:block;
+        width: 100%;
+        height: 100%;
+        color: inherit;
+        border: none;
+        outline: none;
+        padding: 0;
+        position: relative;
+    }
+
+    .le_react_input_fields .le_react_input_errorMsg p{
+        font-size: 12px;
+        color: #333;
+        color: inherit;
+    }
+    .le_react_input_fields .le_react_input_label{
+        position: absolute;
+        height: 32px;
+        line-height: 32px;
+        font-size: 14px;
+        color: inherit;
+        line-height: normal;
+        z-index: 1;
+        bottom: 0;
+        transition:bottom 1s;
+        transform: scale(1);
+    }
+    .le_react_input_fields .inputOnfocus .le_react_input_label{
+        position: absolute;
+        left: 0;
+        bottom: 20px;
+        color: inherit;
+        transition:bottom 1s;
+        transform: scale(0.7);
+    }
+
+
+</style>
+
+
+<script>
+    $(function(){
+        $(".le_react_input_input").focus(function(){
+            $(".le_react_input_slot").addClass("inputOnfocus");
+        })
+        $(".le_react_input_input").blur(function(){
+            $(".le_react_input_slot").removeClass("inputOnfocus");
+        })
+
+        $(".le_react_input_input").change(function(){
+            $(".le_react_input_slot").removeClass("inputOnfocus");
+        })
+    })
+</script>

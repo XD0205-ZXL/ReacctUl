@@ -4,7 +4,10 @@ import './static/common.css'
 import Router from './router'
 
 import {LeInput} from "./out";
+import {Le_react_Button} from "./out";
+
   
+// input的使用
 class Input_parent extends React.Component{
 
         constructor(props) {
@@ -53,9 +56,29 @@ class Input_parent extends React.Component{
         )
     }
 }
+// export default Input_parent
+// ReactDOM.render(<Input_parent />, document.getElementById('app'));
 
-export default Input_parent
 
+//button的使用
+class Le_react_Button_parent extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            value1:"新建按钮",
+            value2:"修改按钮",
+        }
+    }
 
+    render(){
+        return (
+            <div>
+                <Le_react_Button value={this.state.value1}></Le_react_Button>
+                <Le_react_Button value={this.state.value2}></Le_react_Button>
+            </div>
+        )
+    }
+}
 
-ReactDOM.render(<Input_parent />, document.getElementById('app'));
+export default Le_react_Button_parent
+ReactDOM.render(<Le_react_Button_parent />, document.getElementById('app'));

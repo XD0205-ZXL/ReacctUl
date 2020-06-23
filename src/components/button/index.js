@@ -1,11 +1,16 @@
 import React from 'react';
 import "./index.scss";
+import PropTypes from 'prop-types';
+
 
 
 class Le_react_Button extends React.Component{
     constructor(props){
         super(props)
-        this.value = this.props.value
+        this.state = {
+            value : this.props.value,
+            disabled:false,
+        }
     }
     componentDidMount(){
         this.refs.button.addEventListener('click',function(e){
@@ -22,9 +27,27 @@ class Le_react_Button extends React.Component{
         })
     }
     render(){
-        return (<button ref="button" className="btn">{this.state.value}</button>)
+        return (
+            <div className="Le_react_Button">
+                <i className={`icon ${this.props.iconName}`}></i>
+                <button ref="button" className="btn">{this.state.value}</button>
+            </div>
+        )
     }
 }
 
 export default Le_react_Button
+
+
+Le_react_Button.defaultProps = {
+    type:"",
+    disabled:false,
+    iconName:""
+}
+
+Le_react_Button.propTypes = {
+    type:PropTypes.string,
+    iconName:PropTypes.string,
+    disabled: PropTypes.bool,
+}
 

@@ -3,16 +3,17 @@
     position: relative;
     float: left;
     margin: 0 5px;
+    color: #efeded;
     .icon{
         width: 14px;
         height: 14px;
-        border: 1px solid red;
         display: block;
         position: absolute;
         z-index: 1;
         top: 50%;
         transform: translateY(-50%);
         left: 10px;
+        color: inherit;
     } 
     .btn{
         height: 36px;
@@ -21,6 +22,7 @@
         box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
         color: #ffffff;
         border: none;
+        border-radius: 3px;
         background-color: #eaa9bf;
         cursor: pointer;
         position: relative;
@@ -47,5 +49,26 @@
             height: 500px;
             opacity: 0;
         }
+    }
+
+    // 不同类型的按钮加不同的颜色
+    .search{
+        background-color: #70a54f;
+    }
+    .create{
+        background-color: #4eaae0;
+    }
+    .modify{
+        background-color: #54bf9d;
+    }
+    .info{
+        background-color: #c5c383;
+    }
+    .disabled{
+        background-color: #c5c383;
+    }
+    .disabled{
+        background-color: #968f8f;
+        cursor: no-drop;
     }
 }

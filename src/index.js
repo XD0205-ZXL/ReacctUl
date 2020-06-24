@@ -133,21 +133,21 @@ class Le_react_checkbox_parent extends React.Component{
         super(props);
         this.state = {
             label:"职业：",
-          
+            disabled:false,
+            displayName:'name',
+            displayValue:'code'
         }
     }
 
     render(){
         return (
             <div>
+                <button onClick={this.setCheckboxVal.bind(this)}>设置chaeckbox的值</button>
                 <Le_react_checkbox 
                     ref = 'Le_react_checkbox'
                     label={this.state.label}
                     displayName={this.state.displayName}
                     displayValue={this.state.displayValue}
-                    disabled={this.state.disabled}
-                    data={this.state.dataSource}
-
                 ></Le_react_checkbox>
             </div>
         )
@@ -161,7 +161,12 @@ class Le_react_checkbox_parent extends React.Component{
             {name:'警察',code:'1004'},
             {name:'主持人',code:'1005'},
         ]
-        this.refs.Le_react_checkbox.init(dataSource)
+        this.refs.Le_react_checkbox.init(dataSource);
+        this.refs.Le_react_checkbox.setDisabled(this.state.disabled);
+    }
+
+    setCheckboxVal(){
+        this.refs.Le_react_checkbox.setCheckedItems("1001,1005,1006");
     }
 
 

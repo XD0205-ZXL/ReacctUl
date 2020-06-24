@@ -6,45 +6,32 @@ import './index.scss'
 
 // checkbox功能点：
 // 			属性：
-// 				data:   []挂载在state上
-// 				disabled
-// 				label:非必填
-// 				displayName
-// 				displayValue
+// 				data:   []挂载在state上    。。。。
+// 				disabled                  。。。。
+// 				label:非必填               。。。。
+// 				displayName               。。。。
+// 				displayValue              。。。。
 // 			事件：
-// 				click
+// 				click                     。。。。
 // 			方法：
-// 				init()
-// 				getCheckedItems()
-// 				setCheckedItems()
+// 				init()                    。。。。
+// 				getCheckedItems()         。。。。
+// 				setCheckedItems()         。。。。
 // 				getItemByField()
 
 class Le_react_checkbox extends React.Component{
     constructor(props){
         super(props);
-
         this._id = CommonUtil._idSeed.newId();
         this._data = null;
         this.state ={
-            data:[]
+            data:[],
+            disabled:false,
         }
     }
 
-    getCheckboxItems(){
-        let arr = [];
-        this.state.data.map(item => 
-            arr.push(
-                <li key={item.__tmpId}>
-                    <input type="checkbox"/>
-                    <span>{item.name}</span>
-                </li>
-            )
-        )
-        return arr;
-    }
-
     render(){
-        debugger
+        // debugger
         if(this.state.data.length == 0){
             return null;
         }
@@ -67,10 +54,76 @@ class Le_react_checkbox extends React.Component{
         this.setState({data:tmp});
     }
 
+    //循环数据源 然后生成 CheckBox的每一个选项
+    getCheckboxItems(){
+        let arr = [];
+        this.state.data.map(item => 
+            arr.push(
+                <li key={item.__tmpId} tmpid={item.__tmpId}
+                    className={this.state.disabled?"readonlyItem":""}
+                    // onClick={this.clickItem.bind(this,item)}
+                >
+                    <input type="checkbox" 
+                        checked={item.__ck}
+                        disabled={this.state.disabled}
+                        onChange={()=>this.changeItemCk(item)}
+                    />
+                    <span>{item[this.props.displayName]}</span>
+                </li>
+            )
+        )
+        return arr;
+    }
+
+    setDisabled(val){
+        this.setState({disabled:val})
+    }
+
+    clickItem(curItem,e){
+        this.state.data.map((item)=>{
+            if(curItem.__tmpId == item.__tmpId){
+                curItem.__ck = !curItem.__ck
+            }
+        })
+        this.setState({data:this.state.data})
+        let arr = this.getCheckedItems()
+        console.log(arr)
+    }
+
+    changeItemCk(item){
+        this.clickItem(item);   
+    }
+
+    getCheckedItems(){
+        let arr = [];
+        this.state.data.map((item)=>{
+            if(item.__ck){
+                arr.push(item);
+            }
+        })
+        if(arr.length == 1){
+            return arr[0]
+        }else{
+            return arr;
+        }
+    }
+
+    setCheckedItems(val){
+        this.state.data.forEach(item=>{
+            item.__ck = false;
+            let itemVal = item[this.props.displayValue];
+            val && val.split(",").forEach(obj=>{
+                if(obj == itemVal){
+                    item.__ck = true; 
+                }
+            })
+        });
+        this.setState({state:this.state.data})
+    }
+
     componentDidMount(){
         
     }
-
 }
 export default Le_react_checkbox;
 
@@ -83,6 +136,6 @@ Le_react_checkbox.defaultProps = {
 Le_react_checkbox.propTypes = {
     label:PropTypes.string,
     displayName:PropTypes.string,
-    displayValue:PropTypes.string
+    displayValue:PropTypes.string,
 }
 

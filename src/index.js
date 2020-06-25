@@ -6,10 +6,9 @@ import './assets/font-awesome.css';
 import Router from './router'
 
 // import {Le_react_Button,Le_react_checkbox} from "./out";
-import {Le_react_checkbox} from "./out";
+import {Le_react_radio} from "./out";
 // input的使用
 class Input_parent extends React.Component{
-
         constructor(props) {
             super(props);
             this.state = {
@@ -124,6 +123,8 @@ class Le_react_Button_parent extends React.Component{
         )
     }
 }
+
+//button的使用
 // export default Le_react_Button_parent
 // ReactDOM.render(<Le_react_Button_parent />, document.getElementById('app'));
 
@@ -142,12 +143,13 @@ class Le_react_checkbox_parent extends React.Component{
     render(){
         return (
             <div>
-                <button onClick={this.setCheckboxVal.bind(this)}>设置chaeckbox的值</button>
+                <button onClick={this.setCheckboxVal}>设置chaeckbox的值</button>
                 <Le_react_checkbox 
                     ref = 'Le_react_checkbox'
                     label={this.state.label}
                     displayName={this.state.displayName}
                     displayValue={this.state.displayValue}
+                    change={this.getSelectitem}
                 ></Le_react_checkbox>
             </div>
         )
@@ -169,8 +171,73 @@ class Le_react_checkbox_parent extends React.Component{
         this.refs.Le_react_checkbox.setCheckedItems("1001,1005,1006");
     }
 
+    getSelectitem(selectArr){
+        console.log(selectArr)
+    }
+
 
 }
-export default Le_react_checkbox_parent
-ReactDOM.render(<Le_react_checkbox_parent />, document.getElementById('app'));
+// export default Le_react_checkbox_parent
+// ReactDOM.render(<Le_react_checkbox_parent />, document.getElementById('app'));
+
+
+// export default Le_react_Button_parent
+// ReactDOM.render(<Le_react_Button_parent />, document.getElementById('app'));
+
+//radio的使用
+class Le_react_radio_parent extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            label:"职业：",
+            disabled:true,
+            displayName:'name',
+            displayValue:'code'
+        }
+    }
+
+    render(){
+        return (
+            <div>
+                <button onClick={this.setCheckboxVal.bind(this)}>设置chaeckbox的值</button>
+                <Le_react_radio
+                    ref = 'Le_react_radio'
+                    label={this.state.label}
+                    displayName={this.state.displayName}
+                    displayValue={this.state.displayValue}
+                    change={this.getSelectitem.bind(this)}
+                ></Le_react_radio>
+            </div>
+        )
+    }
+
+    componentDidMount(){
+        let dataSource = [
+            {name:'程序员',code:'1001'},
+            {name:'老师',code:'1002'},
+            {name:'医生',code:'1003'},
+            {name:'警察',code:'1004'},
+            {name:'主持人',code:'1005'},
+        ]
+        this.refs.Le_react_radio.init(dataSource);
+        this.refs.Le_react_radio.setDisabled(this.state.disabled);
+    }
+
+    setCheckboxVal(){
+        this.refs.Le_react_radio.setCheckedItems("1004");
+    }
+
+    getSelectitem(selectArr){
+        //这个是组件里面 发生change的时候 抛出来的值
+        console.log(selectArr)
+        //这个是调用的子组件里面的getCheckedItems方法
+        let arr = this.refs.Le_react_radio.getCheckedItems();
+        console.log(arr)
+    }
+
+
+}
+export default Le_react_radio_parent
+ReactDOM.render(<Le_react_radio_parent />, document.getElementById('app'));
+
 

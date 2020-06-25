@@ -23,6 +23,7 @@ class Le_react_checkbox extends React.Component{
     constructor(props){
         super(props);
         this._id = CommonUtil._idSeed.newId();
+        this._name = CommonUtil._idSeed.newId();
         this._data = null;
         this.state ={
             data:[],
@@ -61,9 +62,10 @@ class Le_react_checkbox extends React.Component{
             arr.push(
                 <li key={item.__tmpId} tmpid={item.__tmpId}
                     className={this.state.disabled?"readonlyItem":""}
-                    // onClick={this.clickItem.bind(this,item)}
+                    onClick={this.clickItem.bind(this,item)}
                 >
-                    <input type="checkbox" 
+                    <input type="radio" 
+                        name={this._name}
                         checked={item.__ck}
                         disabled={this.state.disabled}
                         onChange={()=>this.changeItemCk(item)}
@@ -80,11 +82,12 @@ class Le_react_checkbox extends React.Component{
     }
 
     clickItem(curItem,e){
-        // this.state.data.map((item)=>{
-        //     if(curItem.__tmpId == item.__tmpId){
-        //         curItem.__ck = !curItem.__ck
-        //     }
-        // })
+        if(this.state.disabled){
+            return
+        }
+        this.state.data.map((item)=>{
+            item.__ck = false;
+        })
         curItem.__ck = !curItem.__ck;
         this.setState({data:this.state.data})
         let arr = this.getCheckedItems()

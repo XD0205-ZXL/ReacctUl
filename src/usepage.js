@@ -2,85 +2,57 @@ import React from 'react';
 import './static/common.css'
 import './assets/font-awesome.css';
 
-import {LeInput,Le_react_Button,Le_react_checkbox} from "./out";
+import {LeInput,Le_react_Button,Le_react_checkbox,Le_react_localselect} from "./out";
 
 export class UsePage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            //inputde
-            textVal : '222',
-            disabled: false,
-
-            //button的
-            value1:"新建按钮",
-            cls1:'search',
-            iconName1:"fa fa-plus-square",
-            disabled1:false,
-
-
-            value2:"修改按钮",
-            cls2:'modify',
-            iconName2:"fa fa-pencil",
-            disabled2:true,
-
-            //checkbox的
-            label:"职业：",
-            disabled:false,
-            displayName:'name',
-            displayValue:'code'
+            Le_react_localselect : {
+                label:'请选择区域:',
+                displayName:"areaName",
+                displayValue:'areaCode'
+            }
         }
     }
 
-    
+    getItems(){
+        let arr = this.refs.Le_react_localselect.getCheckedeItems();
+        console.log(1111111111111111111111111)
+        console.log(arr)
+        console.log(1111111111111111111111111)
+    }
+
+    setItems(){
+        this.refs.Le_react_localselect.setCheckedeItems("2001,2002");
+    }
 
     render(){
         return (
             <div>
-                {/* ...........input组件的使用................. */}
-                <button onClick={this.setval.bind(this)}>设置子组件的值</button>
-                <LeInput 
-                        ref = "inputs"
-                        value={this.state.textVal} 
-                        placeholderText="" 
-                        changeName={this.changeName.bind(this)} 
-                        change={(event)=>{this.changetext.bind(this)}}
-                        disabled = {this.state.disabled}
-                        tips="提示：请输入文字"
-                        type="text"
-                        enterAlert={this.alertName}
-                ></LeInput>
-                <p>父组件中的值是：{this.state.textVal}</p>
+                <button onClick={this.getItems.bind(this)}>获取选中的值:</button>
+                <button onClick={this.setItems.bind(this)}>设置选中某项:</button>
+                <Le_react_localselect
+                    ref="Le_react_localselect"
+                    label={this.state.Le_react_localselect.label}
+                    displayName={this.state.Le_react_localselect.displayName}
+                    displayValue={this.state.Le_react_localselect.displayValue}
+                >
 
-                {/* 。。。。。。。button组件的使用。。。。。。。。。。。。。 */}
-                <Le_react_Button 
-                    ref = "btn1"
-                    value={this.state.value1} 
-                    cls={this.state.cls1} 
-                    iconName={this.state.iconName1} 
-                    disabled={this.state.disabled1}
-                    click={this.reSetBtnDisabled.bind(this)}
-                ></Le_react_Button>
-                <Le_react_Button 
-                    ref = "btn2"
-                    value={this.state.value2} 
-                    cls={this.state.cls2} 
-                    iconName={this.state.iconName2}
-                    disabled={this.state.disabled2}
-                    submit={this.onSubmitFun.bind(this)}
-                ></Le_react_Button>
-
-
-                {/* 。。。。。。。checkbox的使用。。。。。。。。。。。。。。。。。。。 */}
-                <button onClick={this.setCheckboxVal.bind(this)}>设置chaeckbox的值</button>
-                <Le_react_checkbox 
-                    ref = 'Le_react_checkbox'
-                    label={this.state.label}
-                    displayName={this.state.displayName}
-                    displayValue={this.state.displayValue}
-                    change={this.getSelectitem}
-                ></Le_react_checkbox>
+                </Le_react_localselect>
             </div>
         )
     }
+
+    componentDidMount(){
+        let data =[
+            {areaName:'山西',areaCode:'2001'},
+            {areaName:'北京',areaCode:'2002'},
+            {areaName:'上海',areaCode:'2003'},
+            {areaName:'重庆',areaCode:'2004'},
+        ]
+        this.refs.Le_react_localselect.init(data);
+    }
 }
+
+export default UsePage

@@ -1,0 +1,64 @@
+.Le_react_localselect{
+    margin:  100px auto;
+    width: 500px;
+    min-height: 100px;
+    .label{
+        font-size: 14px;
+        font-weight: 600;
+    }
+    ul,li{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .Le_react_localselect_content{
+        .Le_react_localselect_top{
+            width: 100%;
+            border: 1px solid #ccc;
+
+                .selectItems{
+                    float: left;
+                    border: 1px solid red;
+                    li{
+                        float: left;
+                        padding: 3px 10px;
+                        border-radius: 3px;
+                        background-color: #dad4d4;
+                        margin: 0 3px;
+                    }
+                }
+
+                .Le_react_localselect_input{
+                    height: 36px;
+                    line-height: 36px;
+                    color: #333;
+                    padding: 0 10px;
+                    outline: none;
+                    margin: 3px;
+                    border: none;
+                    border-bottom: 1px solid #827a7c;
+                }
+        }
+
+        .Le_react_localselect_bottom{
+            background-color: #f9f7f7;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-shadow: 0px 2px 5px 0px #e8e1e1;
+            .options li{
+                height: 36px;
+                line-height: 36px;
+                padding-left: 20px;
+                cursor: pointer;
+            }
+            .options li.checked{
+                background-color: pink;
+            }
+            .options li:hover{
+                background-color: pink;
+            }
+        }
+        
+        
+    }
+}

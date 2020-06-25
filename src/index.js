@@ -4,6 +4,7 @@ import './static/common.css'
 import './assets/font-awesome.css';
 
 import Router from './router'
+import {Usepage} from './out'
 
 // import {Le_react_Button,Le_react_checkbox} from "./out";
 import {Le_react_radio} from "./out";
@@ -190,7 +191,7 @@ class Le_react_radio_parent extends React.Component{
         super(props);
         this.state = {
             label:"职业：",
-            disabled:true,
+            disabled:false,
             displayName:'name',
             displayValue:'code'
         }
@@ -237,7 +238,9 @@ class Le_react_radio_parent extends React.Component{
 
 
 }
-export default Le_react_radio_parent
-ReactDOM.render(<Le_react_radio_parent />, document.getElementById('app'));
+// export default Le_react_radio_parent
+// ReactDOM.render(<Le_react_radio_parent />, document.getElementById('app'));
 
+
+ReactDOM.render(<Usepage></Usepage>,document.getElementById('app'))
 

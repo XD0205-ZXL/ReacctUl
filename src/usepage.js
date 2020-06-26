@@ -17,14 +17,12 @@ export class UsePage extends React.Component{
     }
 
     getItems(){
-        let arr = this.refs.Le_react_localselect.getCheckedeItems();
-        console.log(1111111111111111111111111)
+        let arr = this.refs.Le_react_localselect.getSelectitems();
         console.log(arr)
-        console.log(1111111111111111111111111)
     }
 
     setItems(){
-        this.refs.Le_react_localselect.setCheckedeItems("2001,2002");
+        this.refs.Le_react_localselect.setCheckedeItems("2001,2004");
     }
 
     render(){
@@ -37,6 +35,7 @@ export class UsePage extends React.Component{
                     label={this.state.Le_react_localselect.label}
                     displayName={this.state.Le_react_localselect.displayName}
                     displayValue={this.state.Le_react_localselect.displayValue}
+                    change={(d)=>{console.log(d)}}
                 >
 
                 </Le_react_localselect>

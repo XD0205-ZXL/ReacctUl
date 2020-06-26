@@ -17,24 +17,22 @@ class Le_react_localselect extends React.Component{
         super(props);
         this._id=CommonUtil._idSeed.newId();
         this._data = null;
-        this._topData = [];
-        this._bottomData = [];
-        this._text = "";
         this.state = {
-            data : [],
+            data : null,
             disabled:false,
             showBottom:false,
+            topItems:[],
         }
     }
 
     //返回 要在top上展示的 选中的label标签
     getSelectItemDom(){
         let domArr = [];
-        if(this._topData && this._topData.length > 0){
-            this._topData.map((item,index)=>{
+        if(this.state.topItems && this.state.topItems.length > 0){
+            this.state.topItems.map((item,index)=>{
                 domArr.push(
                     <li key={index}
-                        onClick={()=> this.removeCurItem(item)}
+                        onClick={()=> this.clearTopItem(item)}
                     >
                         {item[this.props.displayName]}</li>
                 )
@@ -43,9 +41,14 @@ class Le_react_localselect extends React.Component{
         return domArr;
     }
 
-    removeCurItem(item){
-        item.__ck = false;
-        this.setState({topItems:this.state.data})
+    clearTopItem(item){
+        this.state.topItems.map((obj)=>{
+            if(item.__tmpId == obj.__tmpId){
+                obj.__ck = false;
+            }
+        })
+        let arr = this.refs.Le_react_localselect_bottom.getCheckedItems();
+        this.setState({topItems:arr})
     }
 
     //是否展示下拉
@@ -68,17 +71,14 @@ class Le_react_localselect extends React.Component{
             <div className="Le_react_localselect">
                 <span className="label">{this.props.label}</span>
                 <div className="Le_react_localselect_content">
-                    <div className="Le_react_localselect_top"
-                        onClick={this.showBottom.bind(this)}>
+                    <div className="Le_react_localselect_top">
                         {/* 这个是用来展示选择的item选项 */}
                         <ul className="selectItems clearfix">
                             {this.getSelectItemDom()}
                         </ul>
                         <input onFocus={this.showBottom.bind(this)} 
                             type="text" 
-                            className="Le_react_localselect_input"
-                            onChange={this.filterResult}
-                        />
+                            className="Le_react_localselect_input"/>
                     </div>
                     <div className="Le_react_localselect_bottom">
 
@@ -87,14 +87,20 @@ class Le_react_localselect extends React.Component{
                             displayName={this.props.displayName}
                             showBottom={this.state.showBottom}
                             multiple={this.props.multiple}
-                            data={this._bottomData}
-                            click={this.getBottomSelectArr.bind(this)}
+                            click={this.getCheckedeItems.bind(this)}
                         ></Le_react_localselect_bottom>
                     </div>
 
                 </div>
             </div>
         )
+    }
+
+    getCheckedeItems(arr){
+        this.setState({
+            topItems : arr
+        })
+        return this.state.topItems;
     }
 
     setCheckedeItems(vals){
@@ -108,8 +114,9 @@ class Le_react_localselect extends React.Component{
                     }
                 })
             })
-            this.setState({data:this.state.data});
-            this._topData = this.getSelectitems()
+            this.setState({topItems:topArr})
+            this.setState({data:this.state.data})
+            this.refs.Le_react_localselect_bottom.init(this.state.data);
         }
     }
     
@@ -120,49 +127,8 @@ class Le_react_localselect extends React.Component{
         this.setState({
             data:newArr
         })
+        this.refs.Le_react_localselect_bottom.init(data);
     }
-
-    getSelectitems(){
-        let arr = [];
-        this.state.data.forEach(item => {
-            if(item.__ck){
-                arr.push(item)
-            }
-        });
-        return arr;
-    }
-    //点击上面的时候给bottom初始赋值
-    showBottom(){
-        this._topData = this.getSelectitems();
-        this._bottomData = this.state.data;
-        this.setState({showBottom:true})
-    }
-
-    //bottom发生点击事件的时候调用这个方法
-    getBottomSelectArr(item){
-        this.setState({data:this.state.data});
-        //bottom发生变化  就通知top也变化
-        let arr = this.getSelectitems();
-        this._topData = arr;
-    }
-
-    filterResult=(e)=>{
-        let arr = [];
-        this._text = e.target.value;
-        this.state.data.forEach((item)=>{
-            if(item[this.props.displayValue].indexOf(this._text) != -1){
-                arr.push(item);
-            }
-        })
-        this._topData = this.getSelectitems();
-        this._bottomData = arr;
-        this.setState({
-            data:this.state.data
-        })
-
-        this.props.change && this.props.change(this._text)
-    }
-
 }
 export default Le_react_localselect
 

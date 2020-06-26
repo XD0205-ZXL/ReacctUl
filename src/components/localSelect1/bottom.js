@@ -19,10 +19,10 @@ class Le_react_localselect_bottom extends React.Component{
     //返回 要在Bottom上展示的 option选项
     getBottomOptionsDom(){
         let arr = [];
-        if(this.props.data && this.props.data.length == 0){
+        if(this.state.data && this.state.data.length == 0){
             return
         }
-        this.props.data && this.props.data.forEach((item,index) => {
+        this.state.data && this.state.data.forEach((item,index) => {
             arr.push(
                 <li 
                     className={item.__ck?"checked":""}
@@ -43,9 +43,11 @@ class Le_react_localselect_bottom extends React.Component{
             })
             item.__ck = !item.__ck;
         }
-       
-        // let selectedArr = this.getCheckedItems();
-        this.props.click && this.props.click(item)
+        this.setState({
+            data:this.state.data
+        });
+        let selectedArr = this.getCheckedItems();
+        this.props.click && this.props.click(selectedArr)
     }
 
     getCheckedItems(){
@@ -93,14 +95,12 @@ Le_react_localselect_bottom.defaultProps = {
     label:"",
     displayName:'',
     showBottom:false,
-    multiple:"",
-    data:[]
+    multiple:""
 }
 
 Le_react_localselect_bottom.propTypes = {
     label: PropTypes.string,
     displayName:PropTypes.string,
     showBottom:PropTypes.bool,
-    multiple:PropTypes.string,
-    data:PropTypes.array
+    multiple:PropTypes.string
 }

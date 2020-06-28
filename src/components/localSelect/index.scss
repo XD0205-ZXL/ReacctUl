@@ -18,13 +18,17 @@
 
                 .selectItems{
                     float: left;
-                    border: 1px solid red;
+                    // border: 1px solid red;
+                    min-height: 36px;
+                    line-height: 36px;
                     li{
                         float: left;
                         padding: 3px 10px;
                         border-radius: 3px;
                         background-color: #dad4d4;
-                        margin: 0 3px;
+                        margin: 5px 3px;
+                        height: 20px;
+                        line-height: 20px;
                     }
                 }
 

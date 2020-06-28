@@ -1,0 +1,40 @@
+.Le_react_outComplate{
+    width: 500px;
+    margin: 0 auto;
+    .label{
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .topContent{
+        line-height: 36px;
+        border: 1px solid #ddd;
+        padding: 0 10px;
+        border-radius: 3px;
+    }
+    input{
+        outline: none;
+        border:none;
+    }
+    .tips{
+        padding: 4px 10px;
+        border-radius: 3px;
+        background-color: #ddd;
+        margin-right: 10px;
+    }
+
+    .options{
+        background-color: #f7f4f4;
+        border-radius: 3px;
+        li{
+            height: 36px;
+            line-height: 36px;
+            padding-left: 10px;
+        }
+        li:hover{
+            background-color: #b4e0da;
+        }
+        li.active{
+            background-color: #d4d4f5;
+        }
+    }
+}

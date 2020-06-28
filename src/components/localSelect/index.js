@@ -44,7 +44,7 @@ class Le_react_localselect extends React.Component{
     }
 
     removeCurItem(item){
-        item.__ck = false;
+        item._ck = false;
         this.setState({topItems:this.state.data})
     }
 
@@ -103,7 +103,7 @@ class Le_react_localselect extends React.Component{
             vals.split(",").forEach((val)=>{
                 this.state.data.forEach(obj=>{
                     if(val == obj[this.props.displayValue] ){
-                        obj.__ck = true;
+                        obj._ck = true;
                         topArr.push(obj)
                     }
                 })
@@ -125,7 +125,7 @@ class Le_react_localselect extends React.Component{
     getSelectitems(){
         let arr = [];
         this.state.data.forEach(item => {
-            if(item.__ck){
+            if(item._ck){
                 arr.push(item)
             }
         });

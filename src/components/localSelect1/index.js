@@ -43,8 +43,8 @@ class Le_react_localselect extends React.Component{
 
     clearTopItem(item){
         this.state.topItems.map((obj)=>{
-            if(item.__tmpId == obj.__tmpId){
-                obj.__ck = false;
+            if(item._tmpId == obj._tmpId){
+                obj._ck = false;
             }
         })
         let arr = this.refs.Le_react_localselect_bottom.getCheckedItems();
@@ -109,7 +109,7 @@ class Le_react_localselect extends React.Component{
             vals.split(",").forEach((val)=>{
                 this.state.data.forEach(obj=>{
                     if(val == obj[this.props.displayValue] ){
-                        obj.__ck = true;
+                        obj._ck = true;
                         topArr.push(obj)
                     }
                 })

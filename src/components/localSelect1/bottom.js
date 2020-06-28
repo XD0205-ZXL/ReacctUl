@@ -25,8 +25,8 @@ class Le_react_localselect_bottom extends React.Component{
         this.state.data && this.state.data.forEach((item,index) => {
             arr.push(
                 <li 
-                    className={item.__ck?"checked":""}
-                    key={item.__tmpId} tmpid={item.__tmpId}
+                    className={item._ck?"checked":""}
+                    key={item._tmpId} tmpid={item._tmpId}
                     onClick={()=>{this.selecctItemHandler(item)}}
                 >{item[this.props.displayName]}</li>
             )
@@ -36,12 +36,12 @@ class Le_react_localselect_bottom extends React.Component{
 
     selecctItemHandler(item){
         if(this.props.multiple !== undefined && this.props.multiple !== null && this.props.multiple !== false){
-                item.__ck = !item.__ck;
+                item._ck = !item._ck;
         }else{
             this.state.data.map(obj=>{
-                obj.__ck = false;
+                obj._ck = false;
             })
-            item.__ck = !item.__ck;
+            item._ck = !item._ck;
         }
         this.setState({
             data:this.state.data
@@ -53,7 +53,7 @@ class Le_react_localselect_bottom extends React.Component{
     getCheckedItems(){
         let arr = [];
         this.state.data.map(obj=>{
-            if(obj.__ck){
+            if(obj._ck){
                 arr.push(obj)
             }
         });

@@ -60,13 +60,13 @@ class Le_react_checkbox extends React.Component{
         let arr = [];
         this.state.data.map(item => 
             arr.push(
-                <li key={item.__tmpId} tmpid={item.__tmpId}
+                <li key={item._tmpId} tmpid={item._tmpId}
                     className={this.state.disabled?"readonlyItem":""}
                     onClick={this.clickItem.bind(this,item)}
                 >
                     <input type="radio" 
                         name={this._name}
-                        checked={item.__ck}
+                        checked={item._ck}
                         disabled={this.state.disabled}
                         onChange={()=>this.changeItemCk(item)}
                     />
@@ -86,9 +86,9 @@ class Le_react_checkbox extends React.Component{
             return
         }
         this.state.data.map((item)=>{
-            item.__ck = false;
+            item._ck = false;
         })
-        curItem.__ck = !curItem.__ck;
+        curItem._ck = !curItem._ck;
         this.setState({data:this.state.data})
         let arr = this.getCheckedItems()
         this.props.change && this.props.change(arr);
@@ -101,7 +101,7 @@ class Le_react_checkbox extends React.Component{
     getCheckedItems(){
         let arr = [];
         this.state.data.map((item)=>{
-            if(item.__ck){
+            if(item._ck){
                 arr.push(item);
             }
         })
@@ -114,11 +114,11 @@ class Le_react_checkbox extends React.Component{
 
     setCheckedItems(val){
         this.state.data.forEach(item=>{
-            item.__ck = false;
+            item._ck = false;
             let itemVal = item[this.props.displayValue];
             val && val.split(",").forEach(obj=>{
                 if(obj == itemVal){
-                    item.__ck = true; 
+                    item._ck = true; 
                 }
             })
         });

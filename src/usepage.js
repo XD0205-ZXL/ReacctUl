@@ -9,28 +9,9 @@ import {LeInput,Le_react_Button,Le_react_checkbox,
 export class UsePage extends React.Component{
     constructor(props){
         super(props);
+        this.field = ""
         this.state = {
-            Le_react_outComplateOptions:{
-                getUrl:function(){
-                    return '/newsbk/brand/audilist'
-                },
-                params:{
-                    title: '',
-                    pubStatus: '',
-                    type: 61,
-                    codeLike: '',
-                    childType: '',
-                    curPage: 1,
-                    pageSize: 10
-                },
-                analysis:function(data){
-                    console.log(this.data)
-                    if(data){
-                        return data
-                    }
-                }
-                
-            }
+            
         }
     }
 
@@ -56,6 +37,8 @@ export class UsePage extends React.Component{
                     change={(d)=>{console.log(d)}}
                 >
                 </Le_react_localselect>
+                
+                <hr/>
 
                 {/*  可搜索的下拉 */}
                 <Le_react_outComplate
@@ -63,12 +46,17 @@ export class UsePage extends React.Component{
                     label='可搜索的下拉'
                     displayName='word'
                     displayValue='areaCode'
-                    options={this.state.Le_react_outComplateOptions}
-                    change={this.getCurSelectOpt}
+                    change={this.getCurSelectOpt.bind(this)}
                     url="/suggest?keyword="
                     analysis={this.analysisFun}
+                    field={this.field}
                 >
                 </Le_react_outComplate>
+                <p>我选择的是:{this.field}</p>
+                <hr/>
+
+                {/* table的使用 */}
+                
             </div>
         )
     }
@@ -78,6 +66,8 @@ export class UsePage extends React.Component{
         console.log("我选择的数据是")
         console.log(item)
         console.log("我选择的数据是")
+        this.field = item[0].word
+        this.setState({fidle:item[0].word})
     }
 
     componentDidMount(){

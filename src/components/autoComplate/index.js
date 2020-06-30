@@ -11,6 +11,7 @@ class Le_react_outComplate extends React.Component{
         this._topData = [];
         this._text = "";
         this.flags = -1;
+        this.autoSelectItems = [];
         this.state = {
             data :[],
             showBottom:false
@@ -31,7 +32,7 @@ class Le_react_outComplate extends React.Component{
                 <span className="label">{this.props.label}</span>
                 <div className="topContent">
                     {/* {this.getSelectTips()} */}
-                    <input ref="input" type="text" onChange={(e)=>this.seedAjaxGetdata(e)}/>
+                    <input ref="input" value={this._text} type="text" onChange={(e)=>this.seedAjaxGetdata(e)}/>
                 </div>
                 {this.flags > 0 &&
                     <p>我是if渲染的</p>}
@@ -63,6 +64,7 @@ class Le_react_outComplate extends React.Component{
     //发送ajax
     seedAjaxGetdata(e){
         this._text = e.target.value;
+        this.setState({_text:e.target.value})
         if(!this.props.url){
             alert("请配置ajax的url");
             return
@@ -79,16 +81,37 @@ class Le_react_outComplate extends React.Component{
                     }
                 })
                 this._activeIndex = -1;
+            }else{
+                this.setState((prevState)=>{
+                    return {
+                        data:[],
+                        showBottom:false
+                    }
+                })
             }
         })
     }
-
+    getSelectItems(item){
+        let tag = true;
+        this.autoSelectItems.length > 0 && this.autoSelectItems.forEach((obj,idx)=>{
+            if(obj._tmpId == item[0]._tmpId){
+                tag = false;
+                item[0]._ck = !item[0]._ck;
+                debugger
+                this.autoSelectItems.splice(idx,1).concat(this.autoSelectItems.splice(idx+1,-1))
+            }
+        });
+        if(tag){
+            this.autoSelectItems.push(item[0])
+        }
+    }
     //监听bottom的点击事件 获取到当前用户点击的数据
     getSelectItem(item){
-        debugger
         this._topData=item;
-        this.props.change && this.props.change(item);
-        this.setState({data:this.state.data,showBottom:false})
+        let newArr = this.getSelectItems(item);
+        this.props.change && this.props.change(this.autoSelectItems);
+        this.setState({data:this.state.data,showBottom:false});
+        this._text = item[0].word
     }
 }
 
@@ -101,6 +124,7 @@ Le_react_outComplate.defaultProps = {
     displayValue:"",
     multiple:"",
     url:"",
+    field:"",
     analysis:()=>{},
     change:()=>{}
 }
@@ -112,5 +136,6 @@ Le_react_outComplate.propTypes = {
     multiple:PropTypes.string,
     url:PropTypes.string,
     analysis:PropTypes.func,
-    change:PropTypes.func
+    change:PropTypes.func,
+    field:PropTypes.string
 }

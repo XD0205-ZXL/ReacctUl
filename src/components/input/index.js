@@ -79,7 +79,6 @@ class Le_react_input extends React.Component{
     }
 
     clickhandler(e){
-        debugger
         if(e.nativeEvent.keyCode === 13){
             this.props.enterAlert();
         }else{

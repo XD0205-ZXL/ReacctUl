@@ -23,7 +23,8 @@ module.exports = {
         openPage: './index.html',
         proxy: {
             '/':{
-                target: 'https://s.nec.lenovouat.com',
+                // target: 'https://s.nec.lenovouat.com',//这个是下拉搜索的地址
+                target: 'http://admin.nec.lenovouat.cn',
                 secure: false,
                 changeOrigin: true
             },

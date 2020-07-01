@@ -14,12 +14,34 @@ export class UsePage extends React.Component{
         this.tableMap = [
             {key:'name',value:'名称'},
             {key:'code',value:'编码'},
-            {key:'desc',value:'介绍'},
+            {key:'descriptions',value:'介绍'},
         ],
+        this.tableAciton = [
+            {
+                key:"update",
+                val:"<#编辑#>",
+                action:this.tableEdit
+            },
+            {
+                key:"remove",
+                val:"<#删除#>",
+                action:this.tableRemoveItem
+            },
+            {
+                key:"info",
+                val:"<#详情#>",
+                action:this.tableInfo
+            },
+        ]
         this.state = {
             
         }
     }
+    tableEdit(){}
+
+    tableRemoveItem(){}
+    
+    tableInfo(){}
 
     getItems(){
         let arr = this.refs.Le_react_localselect.getSelectitems();
@@ -31,7 +53,6 @@ export class UsePage extends React.Component{
     }
 
     getAutoSelectLi(){
-        debugger
         let arr = [];
         this.autoSelectItems.forEach(item=>{
             arr.push(
@@ -77,10 +98,16 @@ export class UsePage extends React.Component{
                 <hr/>
 
                 {/* table */}
-                {/* <Le_react_table tableTitle="测试列表"
-                    url="/newsbk/brand/audilist?title=&pubStatus=&type=61&codeLike=&childType=&curPage=1&pageSize=10"
+                <Le_react_table tableTitle="测试列表"
+                    url="/site/resource/selectResource?name=&code="
                     map={this.tableMap}
-                ></Le_react_table> */}
+                    showSelect={true}
+                    singleSelect={false}
+                    indexKey='curPage'
+                    sizeKey='pageSize'
+                    actions={this.tableAciton}
+                    analysis={this.analysisTableData}
+                ></Le_react_table>
             </div>
         )
     }
@@ -91,6 +118,10 @@ export class UsePage extends React.Component{
         this.setState({fidle:item[0].word});
         // this.autoSelectItems = item;
         this.setState({autoSelectItems:item})
+    }
+
+    analysisTableData(data){
+        return data.dataList
     }
 
     componentDidMount(){

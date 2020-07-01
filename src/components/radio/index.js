@@ -32,7 +32,6 @@ class Le_react_checkbox extends React.Component{
     }
 
     render(){
-        // debugger
         if(this.state.data.length == 0){
             return null;
         }

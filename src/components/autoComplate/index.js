@@ -70,7 +70,6 @@ class Le_react_outComplate extends React.Component{
             return
         }
         Ajax.getFetch(this.props.url + this._text).then(x=>{
-            debugger
             let tmp = this.props.analysis(x.data);
             if(!CommonUtil.comp.checkArrayNull(tmp)){
                 tmp = CommonUtil.comp.addPrimaryAndCk(tmp);
@@ -97,7 +96,6 @@ class Le_react_outComplate extends React.Component{
             if(obj._tmpId == item[0]._tmpId){
                 tag = false;
                 item[0]._ck = !item[0]._ck;
-                debugger
                 this.autoSelectItems.splice(idx,1).concat(this.autoSelectItems.splice(idx+1,-1))
             }
         });

@@ -4,5 +4,7 @@ export default{
         {type:'create',cls:"create",icon:""},
         {type:'modify',cls:"modify",icon:""},
         {type:'info',clss:"info",icon:""},
+        {type:'remove',clss:"remove",icon:""},
+        {type:'info',clss:"info",icon:""},
     ]
 }

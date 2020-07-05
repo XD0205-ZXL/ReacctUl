@@ -19,17 +19,17 @@ export class UsePage extends React.Component{
         this.tableAciton = [
             {
                 key:"update",
-                val:"<#编辑#>",
+                val:"编辑",
                 action:this.tableEdit
             },
             {
                 key:"remove",
-                val:"<#删除#>",
+                val:"删除",
                 action:this.tableRemoveItem
             },
             {
                 key:"info",
-                val:"<#详情#>",
+                val:"详情",
                 action:this.tableInfo
             },
         ]

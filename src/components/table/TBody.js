@@ -17,29 +17,37 @@ class Le_react_table_body extends React.Component{
         }
     }
 
+    getActionsBtn(){
+        let btnsArr = [];
+        this.props.actions.forEach(item=>{
+            btnsArr.push(
+                <Le_react_Button cls={item.key} 
+                key={item.key} value={item.val}
+                iconName="fa-camera-retro"
+            ></Le_react_Button>
+            )
+        })
+        return btnsArr
+    }
+
     getTd(element){
-        console.log(element)
         let tdArr = []
         if(this.props.showSelect){
             tdArr.push(<td key={1000001}>
                 <input defaultChecked={element._ck} name={this.state.radioKey} 
                 type={this.props.singleSelect?"radio":"checkbox"}/></td>)
         }
-        debugger
+       
         if(this.props.actions && this.props.actions.length > 0){
-            let btnArr = [];
-                <td>
-                    {
-                        this.props.actions.forEach(item=>{
-                            btnArr.push(
-                                // <Le_react_Button value={item.val}></Le_react_Button>
-                            <button>{item.val}</button>
-                            )
-                        })
+            tdArr.push(
+               <td key={1000002}>  
+                    { 
+                        this.getActionsBtn()
                     } 
                 </td>
-                return btnArr
+            )
         }
+        
         this.props.map && this.props.map.length > 0 && this.props.map.forEach((item,index)=>{
             tdArr.push(<td key={index}>{element[item.key]}</td>)
         })   
@@ -52,7 +60,6 @@ class Le_react_table_body extends React.Component{
                 trArr.push(<tr key={item._tmpId}>{this.getTd(item)}</tr>)
             })
         }
-        console.log(trArr)
         return trArr
     }
 
@@ -88,7 +95,6 @@ class Le_react_table_body extends React.Component{
     }
 
     componentDidMount(){
-      console.log(this.props.data)
     }
 }
 export default Le_react_table_body

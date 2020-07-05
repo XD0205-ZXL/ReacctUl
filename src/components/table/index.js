@@ -3,6 +3,8 @@ import CommonUtil from "@core/tool";
 import PropTypes from 'prop-types';
 import Ajax from "@core/fetch.js";
 import Le_react_table_body from "./TBody";
+import Le_react_table_paging from "./paging";
+
 import './index.scss'
 
 // select功能点：
@@ -10,7 +12,14 @@ import './index.scss'
 class Le_react_table extends React.Component{
     constructor(props){
         super(props);
-        this.tablekey = CommonUtil._idSeed.newId()
+        this.tablekey = CommonUtil._idSeed.newId();
+        this.pageSizeArr = [
+            {name:"1",code:1},
+            {name:"3",code:3},
+            {name:"5",code:5},
+            {name:"50",code:50},
+            {name:"100",code:100},
+        ]
         this.state = {
             data:[],
             pageIndex:this.props.index?this.props.index:1,
@@ -24,10 +33,13 @@ class Le_react_table extends React.Component{
     getTeadTh(){
         let arr = [];
         if(this.props.showSelect && !this.props.singleSelect ){
-            arr.push(<th key='10000'> <input type="checkbox" className="checkAll"/> </th>)
+            arr.push(<th key='10000'><input type="checkbox" className="checkAll"/></th>)
         }
         if(this.props.showSelect && this.props.singleSelect ){
             arr.push(<th key='10000'></th>)
+        }
+        if(this.props.actions && this.props.actions.length> 0){
+            arr.push(<th key='10001'>操作</th>)
         }
         this.props.map && this.props.map.forEach((item,idx)=>{
             arr.push(
@@ -41,7 +53,7 @@ class Le_react_table extends React.Component{
 
     //获取数据
     getDate(pageIndex){
-        let curIndex = pageIndex?pageIndex:1; //第几页
+        let curIndex = pageIndex?pageIndex:this.state.pageIndex; //第几页
         let pageSize = this.props.size;   //每页多少条
         let url = this.props.url;
         if(!url){
@@ -52,21 +64,34 @@ class Le_react_table extends React.Component{
         let symbol = url.indexOf('?') === -1?"?":"&";
         url = url + symbol + this.props.indexKey + "=" + curIndex + "&" +this.props.sizeKey + "=" + this.state.size;
         Ajax.getFetch(url).then(x=>{
+            let totalPagee = 0; 
+            if( parseInt( x.data.count % this.state.size== 0)  ){
+                totalPagee = parseInt( x.data.count / this.state.size)
+            }else{
+                totalPagee = parseInt(parseInt(x.data.count / this.state.size)) + 1;
+            }
+           
             let tmp = this.props.analysis(x.data);
             if(!CommonUtil.comp.checkArrayNull(tmp)){
                 tmp = CommonUtil.comp.addPrimaryAndCk(tmp);
-                this.setState({
-                    data:tmp
-                })
+                    this.setState({
+                        data:tmp,
+                        count:x.data.count,
+                        total:totalPagee
+                    })
             }else{
                 this.setState({
                     data:[]
                 })
             }
+            console.log(this.state)
         })
     }
 
     render(){
+        if(this.state.data.length == 0 ){
+            return false
+        }
         return (
             <div className="Le_react_table" id={this.tablekey}>
                 { 
@@ -88,11 +113,62 @@ class Le_react_table extends React.Component{
                         actions={this.props.actions}
                     ></Le_react_table_body>
                 </table>
+                {/* 分页 */}
+                <Le_react_table_paging
+                    curPageIndex={this.state.pageIndex}
+                    curPageSize={this.state.size}
+                    totalPage={this.state.total}
+                    countNum={this.state.count}
+                    getPre={this.getPre.bind(this)}
+                    getNext={this.getNext.bind(this)}
+                    jumpToPages={this.jumpToPages.bind(this)}
+                    pageSizeArr={this.pageSizeArr}
+                    changePageSize={this.changePageSizes.bind(this)}
+                >
+                        
+                </Le_react_table_paging>
                 <div v-show='isLoading' className="tableMask">
                     <img className="tableLoadingImg" src="//p2-nec.static.pub/fes/cms/2020/04/19/t960paupk2x9wzsw1y79dcmpeho847108450.gif"/>
                 </div>
             </div>
         )
+    }
+
+    getPre(){
+        let prePage = 0;
+        if(this.state.pageIndex > 1){
+            prePage = this.state.pageIndex - 1
+        }else{
+            prePage = 1;
+        }
+        this.setState({pageIndex:prePage},function(){
+            this.getDate();
+        });
+    }
+    getNext(){
+        let nextPage = 0;
+        if(this.state.pageIndex < this.state.total ){
+            nextPage = this.state.pageIndex + 1
+        }else{
+            nextPage = this.state.total;
+        }
+        this.setState({pageIndex:nextPage},function(){
+            this.getDate()
+        });
+    }
+    jumpToPages(pageIndex){
+        this.setState({pageIndex:pageIndex},function(){
+            this.getDate()
+        });
+    }
+    changePageSizes(val){
+        
+        this.setState({
+            pageIndex:1,
+            size:val.code
+        },function(){
+            this.getDate()
+        })
     }
 
     componentDidMount(){

@@ -35,7 +35,7 @@ class Le_react_Button extends React.Component{
         if(this.props.onClick){
             this.props.onClick();
         }else{
-            this.onSubmitHandler(this.props.submit)
+            // this.onSubmitHandler(this.props.submit)
             
         }
     }
@@ -84,7 +84,9 @@ class Le_react_Button extends React.Component{
                 onClick={this.onClickhandler.bind(this)}
             >
 
-                <i className={`icon ${this.props.iconName}`}></i>
+            {   
+                this.props.iconName && <i className={`fa icon ${this.props.iconName}`}></i>
+            }
 
                 <button ref="button" 
                     className={`btn ${this.props.cls}  ${this.state.disabled?"disabled":""}`}

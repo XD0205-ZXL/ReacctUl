@@ -1,0 +1,71 @@
+.Le_react_upload{
+    width: 90%;
+    margin:  0 auto;
+    height: 36px;
+    line-height: 36px;
+    position: relative;
+    padding-top: 10px;
+    font-size: 16px;
+    color: #333;
+    .label{
+        position: absolute;
+        left: 0;
+    }
+    .label.onFocus{
+        transform:scale( 0.7);
+    }
+    .onFocus{
+        top: -10px;
+    }
+    .uploadContent{
+        float: left;
+        padding: 0 10px;
+        border-radius: 3px;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        border-bottom: 1px solid #333;
+
+        .imgList{
+            margin-top: 50px;
+            a{
+                margin: 3px;
+                padding: 5px;
+                background-color: #ccc;
+                border-radius: 3px;
+                font-size: 12px;
+                color: #9e4646;
+                text-decoration: underline;
+            }
+        }
+
+        .uploadInput{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            border: 1px solid red;
+        }
+    }
+    .uploadContent::after{
+        content: "";
+        width: 0;
+        height: 2px;
+        border-bottom: 1px solid red;
+        display: block;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        transition: .3s cubic-bezier(.25,.8,.5,1);
+    }
+    .uploadContent.onFocus::after{
+        width: 100%;
+        transition: .3s cubic-bezier(.25,.8,.5,1);
+    }
+    .uploadContent.onFocus:hover::after{
+        width:100%;
+    }
+}

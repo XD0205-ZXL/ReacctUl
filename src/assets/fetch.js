@@ -89,6 +89,7 @@ let _fetch = {
         return defer.promise;
     },
     uploadFetch:function(url,data,showLoading){
+        debugger
         if(!url){
             return;
         }

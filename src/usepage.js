@@ -1,9 +1,11 @@
 import React from 'react';
 import './static/common.css'
 import './assets/font-awesome.css';
+import Le_react_Alert from "./components/alert/index"
 
 import {LeInput,Le_react_Button,Le_react_checkbox,
-        Le_react_localselect,Le_react_autoComplate,Le_react_table
+        Le_react_localselect,Le_react_autoComplate,Le_react_table,Le_react_upload,
+
     } from "./out";
 
 export class UsePage extends React.Component{
@@ -98,7 +100,7 @@ export class UsePage extends React.Component{
                 <hr/>
 
                 {/* table */}
-                <Le_react_table tableTitle="测试列表"
+                {/* <Le_react_table tableTitle="测试列表"
                     url="/site/resource/selectResource?name=&code="
                     map={this.tableMap}
                     showSelect={true}
@@ -107,10 +109,62 @@ export class UsePage extends React.Component{
                     sizeKey='pageSize'
                     actions={this.tableAciton}
                     analysis={this.analysisTableData}
-                ></Le_react_table>
+                ></Le_react_table> */}
+
+                <hr/>
+
+                <Le_react_upload
+                    label="快上传文件啊"
+                    multiple={true}
+                    type=""
+                    size={10}
+                    url="/file/img/upload"
+                    name = "file"
+                ></Le_react_upload>
+
+                <hr/>
+
+                <Le_react_Button 
+                    value="成功提示"
+                    onClick={this.removeRecords.bind(this)}
+                ></Le_react_Button>
+                 <Le_react_Button 
+                    value="失败提示"
+                    onClick={this.removeRecords2.bind(this)}
+                ></Le_react_Button>
+                 <Le_react_Button 
+                    value="警告提示"
+                    onClick={this.removeRecords3.bind(this)}
+                ></Le_react_Button>
+
+                <Le_react_Button 
+                    value="删除数据"
+                    onClick={this.removeData.bind(this)}
+                ></Le_react_Button>
+                
+
             </div>
         )
     }
+
+    //测试使用alert
+    removeRecords(){
+        Le_react_Alert.showAlert("success","成功啦！","fa-free-code-camp")
+    };
+    removeRecords2(){
+        Le_react_Alert.showAlert("error","失败啦！")
+    };
+    removeRecords3(){
+        Le_react_Alert.showAlert("warning","严重警告")
+    };
+
+    // 测试用confirm
+    removeData(){
+        Le_react_Alert.showConfirm("删除数据","您确定要删除当前这条数据？",()=>{
+            this.removeRecords3()
+        })
+    }
+
 
     //获取到用户选择的那条数据
     getCurSelectOpt(item){

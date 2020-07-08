@@ -58,7 +58,13 @@
         height: 36px;
         line-height: 36px;
         font-size: 16px;
-        padding: 0 10px;    
+        padding: 0 10px;   
+        
+        .closeBtn{
+            float: right;
+            font-style: normal;
+            margin-top: 10px;
+        }
     }
 
     .Le_react_Confirm_content{

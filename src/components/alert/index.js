@@ -27,7 +27,6 @@ let  Le_react_Alert = {
         let domId = "#Le_react_alert"+zIndex; 
         $(domId).animate({top:'40px'},500,()=>{
             setTimeout(() => {
-                debugger
                 $(domId).animate({top:'0'},500,()=>{
                     $(domId).remove(); 
                 });
@@ -41,7 +40,8 @@ let  Le_react_Alert = {
         let dom = `
                 <div class="Le_react_Confirm" style="z-index:`+ z_index +`">
                     <div class="Le_react_Confirm_content">
-                        <p class="title">`+ title +`</p>
+                        <p class="title">`+ title +`
+                        <i class="fa fa-times closeBtn cancle"></i></p>
                         <div class="msg">`+ msg +`</div>
                         <div class="btnGroup">
                             <Le_react_Button class="asbtn sure">确定</Le_react_Button>
@@ -52,7 +52,13 @@ let  Le_react_Alert = {
             `;
 
         $("body").append($(dom));
-        
+
+        $(".Le_react_Confirm").off("click",".cancle").on("click",".cancle",function(){
+            $(".Le_react_Confirm").remove();
+        })
+        $(".Le_react_Confirm").off("click","sure").on("click",".sure",function(){
+            cb && cb();
+        })
     }
 }
 

@@ -4,7 +4,8 @@ import './assets/font-awesome.css';
 import Le_react_Alert from "./components/alert/index"
 
 import {LeInput,Le_react_Button,Le_react_checkbox,
-        Le_react_localselect,Le_react_autoComplate,Le_react_table,Le_react_upload,
+        Le_react_localselect,Le_react_autoComplate,
+        Le_react_table,Le_react_upload,Le_react_Date
 
     } from "./out";
 
@@ -123,25 +124,30 @@ export class UsePage extends React.Component{
                 ></Le_react_upload>
 
                 <hr/>
-
-                <Le_react_Button 
-                    value="成功提示"
-                    onClick={this.removeRecords.bind(this)}
-                ></Le_react_Button>
-                 <Le_react_Button 
-                    value="失败提示"
-                    onClick={this.removeRecords2.bind(this)}
-                ></Le_react_Button>
-                 <Le_react_Button 
-                    value="警告提示"
-                    onClick={this.removeRecords3.bind(this)}
-                ></Le_react_Button>
-
-                <Le_react_Button 
-                    value="删除数据"
-                    onClick={this.removeData.bind(this)}
-                ></Le_react_Button>
                 
+                <div className="clearfix">
+                    <Le_react_Button 
+                        value="成功提示"
+                        onClick={this.removeRecords.bind(this)}
+                    ></Le_react_Button>
+                    <Le_react_Button 
+                        value="失败提示"
+                        onClick={this.removeRecords2.bind(this)}
+                    ></Le_react_Button>
+                    <Le_react_Button 
+                        value="警告提示"
+                        onClick={this.removeRecords3.bind(this)}
+                    ></Le_react_Button>
+
+                    <Le_react_Button 
+                        value="删除数据"
+                        onClick={this.removeData.bind(this)}
+                    ></Le_react_Button>
+                </div>
+
+
+                {/* 日期 */}
+                <Le_react_Date></Le_react_Date>
 
             </div>
         )
